@@ -1,3 +1,0 @@
-/home/jason/take_home/build/CMakeFiles/hand_sim.dir
-/home/jason/take_home/build/CMakeFiles/edit_cache.dir
-/home/jason/take_home/build/CMakeFiles/rebuild_cache.dir
