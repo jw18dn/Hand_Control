@@ -1,0 +1,133 @@
+<mujoco model="7DHAND_URDF_ASM_FINAL">
+  <compiler angle="radian" balanceinertia="true" />
+
+  <!-- Meshes removed - using primitive shapes instead -->
+
+  <contact>
+     <exclude body1="PALM_RZ" body2="I_L1"/>
+     <exclude body1="PALM_RZ" body2="I_L2"/>
+     <exclude body1="PALM_RZ" body2="I_L3"/>
+     <exclude body1="PALM_RZ" body2="P_L1"/>
+     <exclude body1="PALM_RZ" body2="P_L2"/>
+     <exclude body1="PALM_RZ" body2="P_L3"/>
+     <exclude body1="PALM_RZ" body2="T_L1"/>
+     <exclude body1="PALM_RZ" body2="T_L2"/>
+     <exclude body1="PALM_RZ" body2="T_L3"/>
+  </contact>
+
+  <worldbody>
+    <camera name="fpv" pos="-0.2 0 0.5" euler="0 -.5 -1.5"/>
+    <light pos="0 -0.2 1" dir="0 0.2 -0.8" directional="true"/>
+    
+    <body name="universe">
+      <body name="PALM_RX" pos="0 0 0">
+        <inertial pos="0.0 0 0" mass="2.0" diaginertia="0.01 0.01 0.01"/>
+        <joint name="J_RX" pos="0 0 0" axis="1 0 0"/>
+        <body name="PALM_RY" pos="0 0 0">
+          <inertial pos="0.0 0 0" mass="2.0" diaginertia="0.01 0.01 0.01"/>
+          <joint name="J_RY" pos="0 0 0" axis="0 1 0"/>
+          <body name="PALM_RZ" pos="0 0 0">
+            <inertial pos="0 0 0.02" mass="2.0" diaginertia="1e-1 1e-1 1e-1"/>
+            <joint name="J_RZ" pos="0 0 0" axis="0 0 1" />
+            <!-- Palm box: positioned so center of bottom edge is at origin (0,0,0) -->
+            <geom type="box" pos="0 0 0.02" size="0.08 0.05 0.02" rgba="0.792157 0.819608 0.933333 1" friction="1.0 1.0 1.0" condim="4"/>
+
+            <!-- Index finger: emerging from top front of palm with clearance -->
+            <body name="I_L1" pos="0.09 0.02 0.035">
+              <inertial pos="0.0200664 0 0" quat="0 0.707107 0 0.707107" mass="0.0145937" diaginertia="3.54454e-03 3.17103e-03 1.12378e-03"/>
+              <joint name="JI_L1" pos="0 0 0" axis="0 -1 0" range="-1.7 1.7"/>
+              <geom type="cylinder" size="0.01 0.02" pos="0.02 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+              <body name="I_L2" pos="0.04 0 0">
+                <inertial pos="0.013 0 0" quat="0.5 0.5 0.5 0.5" mass="0.00807722" diaginertia="1.10721e-03 1.10721e-03 1.10721e-03"/>
+                <joint name="JI_L2" pos="0 0 0" axis="0 -1 0" range="-1.5 0"/>
+                <geom type="cylinder" size="0.008 0.013" pos="0.013 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+                <body name="I_L3" pos="0.026 0 0">
+                  <inertial pos="0.00867838 -2.38418e-08 0.00103919" quat="8.51691e-05 0.644627 -4.01557e-05 0.764497" mass="0.00698372" diaginertia="8.23583e-03 6.23148e-03 4.91692e-04"/>
+                  <joint name="JI_L3" pos="0 0 0" axis="0 -1 0" range="-1.5 0"/>
+                  <geom type="cylinder" size="0.007 0.01" pos="0.01 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="6"/>
+                  <site name="index_tip_track" pos="0.02 0 0.0" size="0.01" rgba="0 1 0 1" type="sphere"/>
+                </body>
+              </body>
+            </body>
+            <!-- Middle finger (using P_L1 as middle): emerging from top front of palm with clearance -->
+            <body name="P_L1" pos="0.09 -0.02 0.035" quat="0.991445 0 0 -0.130526">
+              <inertial pos="0.0216837 -0.0224072 2.84086e-09" quat="0.602209 0.3706 -0.602209 0.3706" mass="0.0597291" diaginertia="3.48717e-03 2.09158e-03 1.70288e-03"/>
+              <joint name="JP_L1" pos="0 0 0" axis="0 -1 0" range="-1.7 1.7"/>
+              <geom type="cylinder" size="0.012 0.0235" pos="0.0235 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+              <body name="P_L2" pos="0.047 0 0">
+                <inertial pos="0.0149319 -0.00720065 0" quat="0.545667 0.44972 -0.545667 0.44972" mass="0.0169251" diaginertia="3.84381e-03 2.43827e-03 2.27313e-03"/>
+                <joint name="JP_L2" pos="0 0 0" axis="0 -1 0" range="-1.5 0"/>
+                <geom type="cylinder" size="0.009 0.015" pos="0.015 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+                <body name="P_L3" pos="0.03 0 0">
+                  <inertial pos="0.00744067 -0.00658516 0.00107081" quat="0.574485 0.307694 -0.663201 0.368043" mass="0.010488" diaginertia="1.98946e-03 1.98946e-03 1.98946e-03"/>
+                  <joint name="JP_L3" pos="0 0 0" axis="0 -1 0" range="-1.5 0"/>
+                  <geom type="cylinder" size="0.008 0.011" pos="0.011 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="6"/>
+                  <site name="middle_tip_track" pos="0.022 0 0.0" size="0.01" rgba="0 1 0 1" type="sphere"/>
+                </body>
+              </body>
+            </body>
+            <!-- Thumb: positioned at side of palm near bottom -->
+            <body name="T_L1" pos="-0.02 0.045 0.01" quat="0.92388 0 0 0.382683">
+              <inertial pos="-0.0004369 -1.81277e-08 -0.00424998" quat="0.707107 0.707107 0 0" mass="0.00487039" diaginertia="9.01599e-03 8.59373e-03 6.05737e-03"/>
+              <joint name="JT_L1" pos="0 0 0" axis="0 1 0" range="0 1.5"/>
+              <geom type="box" size="0.0075 0.01 0.008" pos="0 0 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+              <body name="T_L2" pos="0.015 0 0" quat="0.707107 -0.707107 0 0">
+                <inertial pos="0.0193414 0.000765409 4.77161e-09" quat="0.122354 0.696441 -0.122354 0.696441" mass="0.0132625" diaginertia="3.72005e-03 2.42908e-03 1.97833e-03"/>
+                <joint name="JT_L2" pos="0 0 0" axis="0 1 0" range="-1.5 1.5"/>
+                <geom type="cylinder" size="0.01 0.0185" pos="0.0185 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+                <body name="T_L3" pos="0.037 0 0">
+                  <inertial pos="0.015 0 0" quat="0 0.707107 0 0.707107" mass="0.0147396" diaginertia="2.85103e-03 2.68735e-03 8.18967e-03"/>
+                  <joint name="JT_L3" pos="0 0 0" axis="0 1 0" range="-1.5 1.5"/>
+                  <geom type="cylinder" size="0.009 0.015" pos="0.015 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+                  <body name="T_L4" pos="0.03 0 0">
+                    <inertial pos="0.0109382 1.02724e-06 0.000948967" quat="3.49199e-05 0.671544 5.47723e-05 0.740964" mass="0.0113121" diaginertia="1.68368e-03 1.68368e-03 1.68368e-03"/>
+                    <joint name="JT_L4" pos="0 0 0" axis="0 1 0" range="-0 1.5"/>
+                    <geom type="cylinder" size="0.008 0.012" pos="0.012 0 0" quat="0.707107 0 0.707107 0" rgba="0.792157 0.819608 0.933333 1" friction="1 1 1" condim="4"/>
+                    <site name="thumb_tip_track" pos="0.03 0 0.0" size="0.01" rgba="0 1 0 1" type="sphere"/>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+    <!-- Mocap bodies for tracking visualization (tips only) -->
+    <body name="Wrist" mocap="true" pos="0 0 0">
+      <!-- Wrist box sized to match palm (0.08 x 0.05 x 0.02) -->
+      <geom type="box" size="0.08 0.05 0.02" rgba="1 0 0 0.3" contype="0" conaffinity="0"/>
+    </body>
+    
+    <body name="IndexTip" mocap="true" pos="0.15 0.02 0.03">
+      <geom type="sphere" size="0.01" rgba="0 1 0 0.5" contype="0" conaffinity="0"/>
+    </body>
+    
+    <body name="ThumbTip" mocap="true" pos="0.05 0.05 0.01">
+      <geom type="sphere" size="0.01" rgba="0 0 1 0.5" contype="0" conaffinity="0"/>
+    </body>
+    
+    <body name="MiddleTip" mocap="true" pos="0.15 -0.02 0.03">
+      <geom type="sphere" size="0.01" rgba="1 1 0 0.5" contype="0" conaffinity="0"/>
+    </body>
+
+
+  </worldbody>
+
+  <actuator>
+    <motor name="J_RX" joint="J_RX" ctrlrange="-100.1 100.1"/>
+    <motor name="J_RY" joint="J_RY" ctrlrange="-100.1 100.1"/>
+    <motor name="J_RZ" joint="J_RZ" ctrlrange="-100.1 100.1"/>
+
+    <motor name="JI_L1" joint="JI_L1" ctrlrange="-80.1 80.1"/>
+    <motor name="JI_L2" joint="JI_L2" ctrlrange="-80.1 80.1"/>
+    <motor name="JI_L3" joint="JI_L3" ctrlrange="-80.1 80.1"/>
+    <motor name="JP_L1" joint="JP_L1" ctrlrange="-80.1 80.1"/>
+    <motor name="JP_L2" joint="JP_L2" ctrlrange="-80.1 80.1"/>
+    <motor name="JP_L3" joint="JP_L3" ctrlrange="-80.1 80.1"/>
+    <motor name="JT_L1" joint="JT_L1" ctrlrange="-80.1 80.1"/>
+    <motor name="JT_L2" joint="JT_L2" ctrlrange="-80.1 80.1"/>
+    <motor name="JT_L3" joint="JT_L3" ctrlrange="-80.1 80.1"/>
+    <motor name="JT_L4" joint="JT_L4" ctrlrange="-80.1 80.1"/>
+  </actuator>
+</mujoco>
